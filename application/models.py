@@ -1,4 +1,6 @@
-from application import db
+from application import app, db
+
+app.app_context().push()
 
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key = True)
