@@ -1,13 +1,13 @@
 from application import db, app
 from application.models import Users
 
-def create_database():
-    with app.app_context():
-        db.create_all()
-
 def delete_database():
     with app.app_context():
         db.drop_all()
+
+def create_database():
+    with app.app_context():
+        db.create_all()
 
 def add_entries():
     entry1 = Users(username='admin', email='admin@admin.com', password='admin')
