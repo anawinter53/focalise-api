@@ -5,6 +5,8 @@ name = "pypi"
 
 [scripts]
 dev="flask run"
+test = "pytest ."
+coverage = "pytest --cov-report term-missing --cov=."
 
 [packages]
 flask = "*"
@@ -12,8 +14,11 @@ flask-sqlalchemy = "*"
 python-dotenv = "*"
 flask-cors = "*"
 psycopg2-binary = "*"
+requests = "*"
 
 [dev-packages]
+pytest = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.11"
