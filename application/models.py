@@ -1,31 +1,34 @@
 from application import app, db
+from datetime import datetime
 
 app.app_context().push()
 
-class Users(db.Model):
-    __tablename__ = 'users'
+class User(db.Model):
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(30), nullable=False)
 
-    settings = db.relationship('UserSettings', back_populates='user')
-    tasks = db.relationship('Tasks', back_populates='user')
+    setting = db.relationship('UserSetting', back_populates='user')
+    task = db.relationship('Task', back_populates='user')
+    message = db.relationship('Message', back_populates='user')
+    token = db.relationship('Token', back_populates='user')
 
     def __init__(self, username, email, password):
         self.username = username
         self.email = email
         self.password = password
 
-class UserSettings(db.Model):
-    __tablename__ = 'settings'
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+class UserSetting(db.Model):
+    __tablename__ = 'setting'
+    setting_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     colour_scheme = db.Column(db.Integer, nullable=False, default=2)
     push_notifications = db.Column(db.Integer, nullable=False, default=2)
     points = db.Column(db.Integer, nullable=False, default=0)
 
-    user = db.relationship('Users', back_populates='settings')
+    user = db.relationship('User', back_populates='setting')
 
     def __init__(self, user_id, colour_scheme, push_notifications, points):
         self.user_id = user_id
@@ -33,16 +36,16 @@ class UserSettings(db.Model):
         self.push_notifications = push_notifications
         self.points = points
 
-class Tasks(db.Model):
-    __tablename__ = 'tasks'
+class Task(db.Model):
+    __tablename__ = 'task'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     category_name = db.Column(db.String(30), nullable=False, default='Uncategorised')
     task_name = db.Column(db.String(30), nullable=False)
     task_url = db.Column(db.String(300), default='None')
     task_desc = db.Column(db.String(100), nullable=False)
 
-    user = db.relationship('Users', back_populates='tasks')
+    user = db.relationship('User', back_populates='task')
 
     def __init__(self, user_id, category_name, task_name, task_url, task_desc):
         self.user_id = user_id
@@ -51,6 +54,32 @@ class Tasks(db.Model):
         self.task_url = task_url
         self.task_desc = task_desc
     
+class Message(db.Model):
+    __tablename__ = 'message'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    content = db.Column(db.String(200), nullable=False)
+
+    user = db.relationship('User', back_populates='message')
+
+    def __init__(self, user_id, date, content):
+        self.user_id = user_id
+        self.date = date
+        self.content = content
+
+class Token(db.Model):
+    __tablename__ = 'token'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    token = db.Column(db.String(100), nullable=False)
+
+    user = db.relationship('User', back_populates='token')
+
+    def __init__(self, user_id, token):
+        self.user_id = user_id
+        self.token = token
+
 
 
 
