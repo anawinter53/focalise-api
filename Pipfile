@@ -21,6 +21,7 @@ uuid = "*"
 [dev-packages]
 pytest = "*"
 pytest-cov = "*"
+"testing.postgresql" = "*"
 
 [requires]
 python_version = "3.11"

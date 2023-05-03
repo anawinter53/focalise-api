@@ -1,4 +1,4 @@
-from application import db, app
+from application import app, db
 from application.models import User, UserSetting, Task, Message, Token
 
 def delete_database():
