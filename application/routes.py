@@ -25,7 +25,6 @@ def index():
 @app.route('/users/new', methods=['POST'])
 def create_user():
     data = request.get_json()
-    print(data)
     username = data.get('username')
     email = data.get('email')
     password = data.get('password')
