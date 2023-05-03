@@ -1,6 +1,9 @@
 from application import db, app
 from application.models import User, UserSetting, Task, Message, Token
 from flask import request, jsonify, render_template, redirect, url_for
+import bcrypt
+import os
+from uuid import uuid4
 
 def index_users():
     list = []
@@ -25,22 +28,57 @@ def show_user(id):
         "password": user.password
     }
 
-def create_user():
+def get_user_by_username(name):
+    user = User.query.filter_by(username = name).first()
+    return {
+        "id": user.user_id,
+        "username": user.username,
+        "email": user.email,
+        "password": user.password
+    }
+
+def register():
     data = request.get_json()
     username = data.get('username')
     email = data.get('email')
-    password = data.get('password')
+    password = data.get('password').encode('utf-8')
+    salt = bcrypt.gensalt(rounds=int(os.getenv("SALT_ROUNDS")))
+    hashed_password = bcrypt.hashpw(password, salt).decode('utf-8')
     if not username or not email or not password:
         return jsonify({'error': 'Missing parameters'}), 400
-    user = User(username=username, email=email, password=password)
+    user = User(username=username, email=email, password=hashed_password)
     db.session.add(user)
     db.session.commit()
     return jsonify({'message': 'Successfully created new user'}), 201
+
+def login():
+    data = request.get_json()
+    user = get_user_by_username(data.get('username'))
+    authenticated = bcrypt.checkpw(data.get('password').encode('utf-8'), user.get('password').encode('utf-8'))
+    if not authenticated:
+        return jsonify({'error': 'Incorrect credentials'}), 403
+    token = create_token(user.get('user_id'))
+    return jsonify({'authenticated': authenticated, 'token': token.token}), 200
 
 
 def index_tasks_by_user(id):
     list = []
     tasks = Task.query.filter_by(user_id = id).all()
+    for task in tasks:
+        data = {
+            "task_id": task.task_id,
+            "user_id": task.user_id,
+            "category_name": task.category_name,
+            "task_name": task.task_name,
+            "task_url": task.task_url
+        }
+        list.append(data)
+
+    return list, 200
+
+def index_tasks_by_category(id, category):
+    list = []
+    tasks = Task.query.filter_by(user_id = id, category_name = category).all()
     for task in tasks:
         data = {
             "task_id": task.task_id,
@@ -65,4 +103,12 @@ def create_task(id):
     task = Task(user_id=user_id, category_name=category_name, task_name=task_name, task_url=task_url, task_desc=task_desc)
     db.session.add(task)
     db.session.commit()
-    return jsonify({'message': 'Successfully added a new'}), 201
+    return jsonify({'message': 'Successfully added a new task'}), 201
+
+def create_token(id):
+    token = uuid4()
+    newToken = Token(user_id=id, token=token)
+    db.session.add(newToken)
+    db.session.commit()
+    return newToken
+
