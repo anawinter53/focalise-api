@@ -11,3 +11,5 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DB_URL")
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 
 db = SQLAlchemy(app)
+
+from application import routes
