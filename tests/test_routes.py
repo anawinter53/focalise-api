@@ -24,12 +24,14 @@ def test_app_create_user(api, test_db, correct_user_data):
         res = api.post('/users/new', json=correct_user_data)
         assert res.status_code == 201
 
-    
-    #     response = client.post("/users/", json=correct_user_data)
-    #     assert response.status_code == 200
-    #     assert "inserted_id" in response.json
-    #     user_id = response.json["inserted_id"]
-    #     assert user_id == "123"
+def test_app_create_user_error(api, test_db, incorrect_user_data):
+    user_model = User("users", test_db)
+    with api.application.app_context():
+        g.user_model = user_model
+
+        res = api.post('/users/new', json=incorrect_user_data)
+        assert res.status_code == 400
+
 
 
 # body = { 

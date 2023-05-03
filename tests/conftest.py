@@ -25,13 +25,19 @@ def test_db():
         import psycopg2
         db = psycopg2.connect(**postgresql.dsn())
 
-
-# user data to test new user
 @pytest.fixture
 def correct_user_data():
     return {
         'username': 'test2',
         'email': 'test2@test.com',
+        'password': 'testing'
+    }
+
+@pytest.fixture
+def incorrect_user_data():
+    return {
+        'username': '',
+        'email': 34,
         'password': 'testing'
     }
 
