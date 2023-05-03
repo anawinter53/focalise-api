@@ -1,6 +1,7 @@
 from application import app, db
 from application.models import User
 from flask import request, jsonify, render_template, redirect, url_for
+from application.controllers import *
 
 @app.route('/')
 def welcome():
@@ -8,32 +9,23 @@ def welcome():
 
 
 @app.route('/users')
-def index():
-    list = []
-    users = User.query.all()
-    for user in users:
-        data = {
-            "id": user.user_id,
-            "username": user.username,
-            "email": user.email,
-            "password": user.password
-        }
-        list.append(data)
+def index_users_route():
+    return index_users()
 
-    return list, 200
 
 @app.route('/users/new', methods=['POST'])
-def create_user():
-    data = request.get_json()
-    print(data)
-    username = data.get('username')
-    email = data.get('email')
-    password = data.get('password')
-    if not username or not email or not password:
-        return jsonify({'error': 'Missing parameters'}), 400
-    user = User(username=username, email=email, password=password)
-    db.session.add(user)
-    db.session.commit()
-    return jsonify({'message': 'Successfully created new user'}), 201
+def create_user_route():
+    return create_user()
 
+@app.route('/users/<int:user_id>')
+def show_user_route(user_id):
+    return show_user(user_id)
+
+@app.route('/users/<int:user_id>/tasks')
+def get_users_tasks(user_id):
+    return index_tasks_by_user(user_id)
+
+@app.route('/users/<int:user_id>/new_task', methods=['POST'])
+def add_new_task(user_id):
+    return create_task(user_id)
 
