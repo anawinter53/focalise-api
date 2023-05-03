@@ -5,7 +5,7 @@ app.app_context().push()
 
 class User(db.Model):
     __tablename__ = 'user'
-    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(30), nullable=False)
@@ -23,7 +23,7 @@ class User(db.Model):
 class UserSetting(db.Model):
     __tablename__ = 'setting'
     setting_id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
     colour_scheme = db.Column(db.Integer, nullable=False, default=2)
     push_notifications = db.Column(db.Integer, nullable=False, default=2)
     points = db.Column(db.Integer, nullable=False, default=0)
@@ -38,8 +38,8 @@ class UserSetting(db.Model):
 
 class Task(db.Model):
     __tablename__ = 'task'
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    task_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
     category_name = db.Column(db.String(30), nullable=False, default='Uncategorised')
     task_name = db.Column(db.String(30), nullable=False)
     task_url = db.Column(db.String(300), default='None')
@@ -56,8 +56,8 @@ class Task(db.Model):
     
 class Message(db.Model):
     __tablename__ = 'message'
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    message_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.String(200), nullable=False)
 
@@ -70,8 +70,8 @@ class Message(db.Model):
 
 class Token(db.Model):
     __tablename__ = 'token'
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    token_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
     token = db.Column(db.String(100), nullable=False)
 
     user = db.relationship('User', back_populates='token')
