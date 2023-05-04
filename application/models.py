@@ -30,7 +30,7 @@ class UserSetting(db.Model):
 
     user = db.relationship('User', back_populates='setting')
 
-    def __init__(self, user_id, colour_scheme, push_notifications, points):
+    def __init__(self, user_id, colour_scheme=2, push_notifications=2, points=0):
         self.user_id = user_id
         self.colour_scheme = colour_scheme
         self.push_notifications = push_notifications
