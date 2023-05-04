@@ -5,17 +5,10 @@ import json
 import testing.postgresql
 from sqlalchemy import create_engine
 
-# set up app
 @pytest.fixture
 def api():
     api = routes.app.test_client()
     return api
-
-# create a test client
-# @pytest.fixture
-# def client(api):
-#     with api.test_client() as test_client:
-#         yield test_client
 
 @pytest.fixture
 def test_db():
@@ -24,6 +17,8 @@ def test_db():
 
         import psycopg2
         db = psycopg2.connect(**postgresql.dsn())
+
+
 
 @pytest.fixture
 def correct_user_data():
@@ -40,6 +35,10 @@ def incorrect_user_data():
         'email': 34,
         'password': 'testing'
     }
+
+
+
+
 
 # create a test db connection
 # @pytest.fixture
