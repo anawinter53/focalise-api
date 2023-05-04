@@ -6,19 +6,19 @@ app.app_context().push()
 class User(db.Model):
     __tablename__ = 'user'
     user_id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
-
+    username = db.Column(db.String(30), nullable=False)
+    
     setting = db.relationship('UserSetting', back_populates='user')
     task = db.relationship('Task', back_populates='user')
     message = db.relationship('Message', back_populates='user')
     token = db.relationship('Token', back_populates='user')
 
     def __init__(self, username, email, password):
-        self.username = username
         self.email = email
         self.password = password
+        self.username = username        
 
 class UserSetting(db.Model):
     __tablename__ = 'setting'
@@ -80,7 +80,16 @@ class Token(db.Model):
         self.user_id = user_id
         self.token = token
 
+class Sensory(db.Model):
+    __tablename__ = 'sensory'
+    sensory_id = db.Column(db.Integer, primary_key=True)
+    video_category = db.Column(db.String(100), nullable=False)
+    video_url = db.Column(db.String(1000), nullable=False)
 
+    def __init__(self, sensory_id, video_category, video_url):
+        self.sensory_id = sensory_id
+        self.video_category = video_category
+        self.video_url = video_url
 
 
 
