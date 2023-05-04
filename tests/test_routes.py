@@ -13,27 +13,25 @@ def test_app_get_user(api):
     res = api.get('/users')
     assert res.status_code == 200 
 
-def test_app_create_user(api, correct_user_data):
-    headers = {
-    'Content-type':'application/json', 
-    'Accept':'application/json'
-    }
-    key = json.dumps(correct_user_data)
-    head = json.dumps(headers)
-    res = api.post('/users/new', key, headers)
-    assert res.status_code == 201
+# def test_app_create_user(api, correct_user_data):
+#     headers = {
+#     'Content-type':'application/json', 
+#     'Accept':'application/json'
+#     }
+#     res = api.post('/users/new', correct_user_data, headers)
+#     assert res.status_code == 201
 
-# def test_app_create_user(api, test_db, correct_user_data):
-#     user_model = User("users", test_db)
-#     with api.application.app_context():
-#         g.user_model = user_model
+def test_app_create_user(api, test_db, correct_user_data):
+    user_model = User("users", test_db)
+    with api.application.app_context():
+        g.user_model = user_model
 
-#         mock_get = mock.Mock()
-#         mock_get.return_value = '70'
-#         g.user_mode.create = mock_get
+        mock_get = mock.Mock()
+        mock_get.return_value = '70'
+        g.user_mode.create = mock_get
 
-#         res = api.post('/users/new', json=correct_user_data)
-#         assert res.status_code == 201
+        res = api.post('/users/new', json=correct_user_data)
+        assert res.status_code == 201
 
 def test_app_create_user_error(api, test_db, incorrect_user_data):
     user_model = User("users", test_db)
