@@ -10,7 +10,7 @@ def index_users():
     users = User.query.all()
     for user in users:
         data = {
-            "id": user.user_id,
+            "user_id": user.user_id,
             "username": user.username,
             "email": user.email,
             "password": user.password
@@ -22,7 +22,7 @@ def index_users():
 def show_user(id):
     user = User.query.filter_by(user_id = id).first()
     return {
-        "id": user.user_id,
+        "user_id": user.user_id,
         "username": user.username,
         "email": user.email,
         "password": user.password
@@ -31,7 +31,7 @@ def show_user(id):
 def get_user_by_username(name):
     user = User.query.filter_by(username = name).first()
     return {
-        "id": user.user_id,
+        "user_id": user.user_id,
         "username": user.username,
         "email": user.email,
         "password": user.password
@@ -60,6 +60,12 @@ def login():
     token = create_token(user.get('user_id'))
     return jsonify({'authenticated': authenticated, 'token': token.token}), 200
 
+def logout():
+    data = request.get_json()
+    token = Token.query.filter_by(token = data.get('token')).first()
+    db.session.delete(token)
+    db.session.commit()
+    return jsonify({'message': 'Token deleted'})
 
 def index_tasks_by_user(id):
     list = []
@@ -107,6 +113,8 @@ def create_task(id):
 
 def create_token(id):
     token = uuid4()
+    if not id or not token:
+        return jsonify({'message': 'Missing parameters'})
     newToken = Token(user_id=id, token=token)
     db.session.add(newToken)
     db.session.commit()

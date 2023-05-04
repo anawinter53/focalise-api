@@ -36,3 +36,7 @@ def add_new_task(user_id):
 def login_route():
     return login()
 
+@app.route('/logout', methods=['POST'])
+def logout_route():
+    return logout()
+
