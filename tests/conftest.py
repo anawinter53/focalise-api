@@ -5,6 +5,23 @@ import json
 import testing.postgresql
 from sqlalchemy import create_engine
 
+
+# import unittest
+
+# from factory import create_app
+
+
+# class ConfigTests(unittest.TestCase):
+
+#     def setUp(self):
+#         app = create_app('flask_test.cfg')
+#         app.testing = True
+#         self.app = app.test_client()
+
+#     def test_app_is_development(self):
+#         self.assertFalse(self.app.application.config['SECRET_KEY'] is 'secret_key')
+#         self.assertTrue(self.app.application.config['DEBUG'] is True)
+
 @pytest.fixture
 def api():
     api = routes.app.test_client()
