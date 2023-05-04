@@ -40,3 +40,10 @@ def login_route():
 def logout_route():
     return logout()
 
+@app.route('/users/<int:user_id>/settings')
+def get_settings(user_id):
+    return show_settings(user_id)
+
+@app.route('/sensory')
+def get_sensory():
+    return show_sensory()

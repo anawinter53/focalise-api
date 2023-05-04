@@ -1,5 +1,5 @@
 from application import db, app
-from application.models import User, UserSetting, Task, Message, Token
+from application.models import User, UserSetting, Task, Message, Token, Sensory
 from flask import request, jsonify, render_template, redirect, url_for
 import bcrypt
 import os
@@ -48,6 +48,10 @@ def register():
         return jsonify({'error': 'Missing parameters'}), 400
     user = User(username=username, email=email, password=hashed_password)
     db.session.add(user)
+    db.session.commit()
+    user = get_user_by_username(username)
+    settings = UserSetting(user_id=user.get('user_id'))
+    db.session.add(settings)
     db.session.commit()
     return jsonify({'message': 'Successfully created new user'}), 201
 
@@ -119,4 +123,25 @@ def create_token(id):
     db.session.add(newToken)
     db.session.commit()
     return newToken
+
+def show_settings(id):
+    setting = UserSetting.query.filter_by(user_id = id).first()
+    return {
+        "user_id": setting.user_id,
+        "colour_scheme": setting.colour_scheme,
+        "push_notifications": setting.push_notifications,
+        "points": setting.points
+    }
+
+def show_sensory():
+    list = []
+    sensories = Sensory.query.all()
+    for s in sensories:
+        data = {
+            "sensory_id": s.sensory_id,
+            "video_category": s.video_category,
+            "video_url": s.video_url
+        }
+        list.append(data)
+    return list, 200
 
