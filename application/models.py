@@ -15,7 +15,7 @@ class User(db.Model):
     message = db.relationship('Message', back_populates='user')
     token = db.relationship('Token', back_populates='user')
 
-    def __init__(self, username, email, password):
+    def __init__(self, username, email, password='password'):
         self.email = email
         self.password = password
         self.username = username        
@@ -25,14 +25,18 @@ class UserSetting(db.Model):
     setting_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
     colour_scheme = db.Column(db.Integer, nullable=False, default=2)
+    font_name = db.Column(db.String(100), nullable=False, default='Poppins')
+    font_size = db.Column(db.String(100), nullable=False, default='Medium')
     push_notifications = db.Column(db.Integer, nullable=False, default=2)
     points = db.Column(db.Integer, nullable=False, default=0)
 
     user = db.relationship('User', back_populates='setting')
 
-    def __init__(self, user_id, colour_scheme=2, push_notifications=2, points=0):
+    def __init__(self, user_id, font_name, font_size, colour_scheme=2, push_notifications=2, points=0):
         self.user_id = user_id
         self.colour_scheme = colour_scheme
+        self.font_name = font_name
+        self.font_size = font_size
         self.push_notifications = push_notifications
         self.points = points
 

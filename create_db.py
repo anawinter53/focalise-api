@@ -13,8 +13,8 @@ def add_entries():
     User1 = User(username='admin', email='admin@admin.com', password='admin')
     User2 = User(username='test', email='test@test.com', password='test')
 
-    Setting1 = UserSetting(user_id=1, colour_scheme=3, push_notifications=2, points=1000)
-    Setting2 = UserSetting(user_id=2, colour_scheme=2, push_notifications=1, points=50)
+    Setting1 = UserSetting(user_id=1, colour_scheme=3, push_notifications=2, font_name='Poppins', font_size='Medium', points=1000)
+    Setting2 = UserSetting(user_id=2, colour_scheme=2, push_notifications=1, font_name='Poppins', font_size='Medium', points=50)
 
     Task1 = Task(user_id=1, category_name='Python', task_name='Python testing', task_url='https://realpython.com/python-testing/', task_desc='Try and understand the concept of unit testing with Python')
     Task2 = Task(user_id=1, category_name='Django', task_name='Django intro', task_url='https://www.w3schools.com/django/django_intro.php', task_desc='Start on Django')
