@@ -80,7 +80,16 @@ class Token(db.Model):
         self.user_id = user_id
         self.token = token
 
+class Sensory(db.Model):
+    __tablename__ = 'sensory'
+    sensory_id = db.Column(db.Integer, primary_key=True)
+    video_category = db.Column(db.String(100), nullable=False)
+    video_url = db.Column(db.String(1000), nullable=False)
 
+    def __init__(self, sensory_id, video_category, video_url):
+        self.sensory_id = sensory_id
+        self.video_category = video_category
+        self.video_url = video_url
 
 
 
