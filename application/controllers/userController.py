@@ -1,5 +1,5 @@
 from application import db, app
-from application.models import User, UserSetting, Task, Message, Token, Sensory
+from application.models import User, UserSetting, Token
 from flask import request, jsonify, render_template, redirect, url_for
 import bcrypt
 import os
@@ -71,50 +71,6 @@ def logout():
     db.session.commit()
     return jsonify({'message': 'Token deleted'})
 
-def index_tasks_by_user(id):
-    list = []
-    tasks = Task.query.filter_by(user_id = id).all()
-    for task in tasks:
-        data = {
-            "task_id": task.task_id,
-            "user_id": task.user_id,
-            "category_name": task.category_name,
-            "task_name": task.task_name,
-            "task_url": task.task_url
-        }
-        list.append(data)
-
-    return list, 200
-
-def index_tasks_by_category(id, category):
-    list = []
-    tasks = Task.query.filter_by(user_id = id, category_name = category).all()
-    for task in tasks:
-        data = {
-            "task_id": task.task_id,
-            "user_id": task.user_id,
-            "category_name": task.category_name,
-            "task_name": task.task_name,
-            "task_url": task.task_url
-        }
-        list.append(data)
-
-    return list, 200
-
-def create_task(id):
-    data = request.get_json()
-    user_id = id
-    category_name = data.get('category_name')
-    task_name = data.get('task_name')
-    task_url = data.get('task_url')
-    task_desc = data.get('task_desc')
-    if not category_name or not task_name or not task_desc:
-        return jsonify({'error': 'Missing parameters'}), 400
-    task = Task(user_id=user_id, category_name=category_name, task_name=task_name, task_url=task_url, task_desc=task_desc)
-    db.session.add(task)
-    db.session.commit()
-    return jsonify({'message': 'Successfully added a new task'}), 201
-
 def create_token(id):
     token = uuid4()
     if not id or not token:
@@ -123,34 +79,3 @@ def create_token(id):
     db.session.add(newToken)
     db.session.commit()
     return newToken
-
-def show_settings(id):
-    setting = UserSetting.query.filter_by(user_id = id).first()
-    return {
-        "user_id": setting.user_id,
-        "colour_scheme": setting.colour_scheme,
-        "push_notifications": setting.push_notifications,
-        "points": setting.points
-    }
-
-def update_settings(id):
-    data = request.get_json()
-    settings = UserSetting.query.filter_by(user_id = id).first()
-    settings.colour_scheme = data.get('colour_scheme')
-    settings.push_notifications = data.get('push_notifications')
-    settings.points += data.get('points')
-    db.session.commit()
-    return jsonify({'message': 'Settings updated'})
-
-def show_sensory():
-    list = []
-    sensories = Sensory.query.all()
-    for s in sensories:
-        data = {
-            "sensory_id": s.sensory_id,
-            "video_category": s.video_category,
-            "video_url": s.video_url
-        }
-        list.append(data)
-    return list, 200
-
