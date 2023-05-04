@@ -44,6 +44,10 @@ def logout_route():
 def get_settings(user_id):
     return show_settings(user_id)
 
+@app.route('/users/<int:user_id>/settings/update', methods=['PUT'])
+def update_settings_route(user_id):
+    return update_settings(user_id)
+
 @app.route('/sensory')
 def get_sensory():
     return show_sensory()

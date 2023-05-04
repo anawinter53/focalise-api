@@ -133,6 +133,15 @@ def show_settings(id):
         "points": setting.points
     }
 
+def update_settings(id):
+    data = request.get_json()
+    settings = UserSetting.query.filter_by(user_id = id).first()
+    settings.colour_scheme = data.get('colour_scheme')
+    settings.push_notifications = data.get('push_notifications')
+    settings.points += data.get('points')
+    db.session.commit()
+    return jsonify({'message': 'Settings updated'})
+
 def show_sensory():
     list = []
     sensories = Sensory.query.all()
