@@ -35,7 +35,7 @@ def get_user_by_username(name):
         "username": user.username,
         "email": user.email,
         "password": user.password
-    }
+    }, 200
 
 def register():
     data = request.get_json()

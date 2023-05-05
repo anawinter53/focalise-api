@@ -12,7 +12,10 @@ def test_app_welcome(api):
 def test_app_get_user(api):
     res = api.get('/users')
     assert res.status_code == 200 
-    
+
+# def test_show_users(api):
+#     res = api.get('/users/1')
+#     assert res.status_code == 200
 
 def test_app_create_user(api, test_db, correct_user_data):
     user_model = User("users", test_db)
