@@ -13,4 +13,8 @@ app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 
 db = SQLAlchemy(app)
 
-from application import routes
+from application.routes import *
+app.register_blueprint(user_routes, url_prefix="/users")
+app.register_blueprint(task_routes, url_prefix="/tasks")
+app.register_blueprint(sensory_routes, url_prefix="/sensory")
+app.register_blueprint(setting_routes, url_prefix="/settings")
