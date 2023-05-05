@@ -12,14 +12,7 @@ def test_app_welcome(api):
 def test_app_get_user(api):
     res = api.get('/users')
     assert res.status_code == 200 
-
-# def test_app_create_user(api, correct_user_data):
-#     headers = {
-#     'Content-type':'application/json', 
-#     'Accept':'application/json'
-#     }
-#     res = api.post('/users/new', correct_user_data, headers)
-#     assert res.status_code == 201
+    
 
 def test_app_create_user(api, test_db, correct_user_data):
     user_model = User("users", test_db)
@@ -28,7 +21,7 @@ def test_app_create_user(api, test_db, correct_user_data):
 
         mock_get = mock.Mock()
         mock_get.return_value = '70'
-        g.user_mode.create = mock_get
+        g.user_model.create = mock_get
 
         res = api.post('/users/new', json=correct_user_data)
         assert res.status_code == 201
