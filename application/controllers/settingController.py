@@ -3,8 +3,7 @@ from application.models import UserSetting
 from flask import request, jsonify, render_template, redirect, url_for
 
 def show_settings(id):
-    setting = UserSetting.query.filter_by(user_id = id).first()
-    print(setting)
+    setting = db.session.get(UserSetting, id)
     return {
         "user_id": setting.user_id,
         "colour_scheme": setting.colour_scheme,
@@ -16,7 +15,7 @@ def show_settings(id):
 
 def update_settings(id):
     data = request.get_json()
-    settings = UserSetting.query.filter_by(user_id = id).first()
+    settings = db.session.get(UserSetting, id)
     settings.colour_scheme = data.get('colour_scheme')
     settings.font_name = data.get('font_name')
     settings.font_size = data.get('font_size')
