@@ -20,7 +20,7 @@ def index_users():
     return list, 200
 
 def show_user(id):
-    user = User.query.filter_by(user_id = id).first()
+    user = db.session(User, id)
     return {
         "user_id": user.user_id,
         "username": user.username,
