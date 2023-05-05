@@ -1,17 +1,22 @@
 import pytest
 from application import routes
+from application import app as flask_app
 import requests
 import json
 import testing.postgresql
 from sqlalchemy import create_engine
 from application.models import User
 
-@pytest.fixture
-def api():
-    api = routes.app.test_client()
-    return api
+@pytest.fixture()
+def app():
+    return flask_app
 
-@pytest.fixture
+@pytest.fixture()
+def client(app):
+    with app.test_client() as test_client:
+        yield test_client
+
+@pytest.fixture()
 def test_db():
     with testing.postgresql.Postgresql() as postgresql:
         engine = create_engine(postgresql.url())
