@@ -1,33 +1,22 @@
 import pytest
 from application import routes
+from application import app as flask_app
 import requests
 import json
 import testing.postgresql
 from sqlalchemy import create_engine
+from application.models import User
 
+@pytest.fixture()
+def app():
+    return flask_app
 
-# import unittest
+@pytest.fixture()
+def client(app):
+    with app.test_client() as test_client:
+        yield test_client
 
-# from factory import create_app
-
-
-# class ConfigTests(unittest.TestCase):
-
-#     def setUp(self):
-#         app = create_app('flask_test.cfg')
-#         app.testing = True
-#         self.app = app.test_client()
-
-#     def test_app_is_development(self):
-#         self.assertFalse(self.app.application.config['SECRET_KEY'] is 'secret_key')
-#         self.assertTrue(self.app.application.config['DEBUG'] is True)
-
-@pytest.fixture
-def api():
-    api = routes.app.test_client()
-    return api
-
-@pytest.fixture
+@pytest.fixture()
 def test_db():
     with testing.postgresql.Postgresql() as postgresql:
         engine = create_engine(postgresql.url())
@@ -35,7 +24,9 @@ def test_db():
         import psycopg2
         db = psycopg2.connect(**postgresql.dsn())
 
-
+@pytest.fixture
+def user_model(test_db):
+    return User("users", test_db)
 
 @pytest.fixture
 def correct_user_data():
@@ -54,7 +45,14 @@ def incorrect_user_data():
     }
 
 
+@pytest.fixture
+def created_user(user_model, correct_user_data):
+    return user_model.register(correct_user_data)
 
+# Tests for user model
+def test_create_user(user_model, correct_user_data):
+    inserted_id = user_model.register(correct_user_data)
+    assert inserted_id is not None
 
 
 # create a test db connection
