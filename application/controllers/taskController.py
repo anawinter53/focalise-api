@@ -5,45 +5,25 @@ from flask import request, jsonify, render_template, redirect, url_for
 def index_tasks_by_user(id):
     list = []
     tasks = Task.query.filter_by(user_id = id).all()
-    for task in tasks:
-        data = {
-            "task_id": task.task_id,
-            "user_id": task.user_id,
-            "category_name": task.category_name,
-            "task_name": task.task_name,
-            "task_url": task.task_url,
-            "task_desc": task.task_desc
-        }
-        list.append(data)
+    data = [d.__dict__ for d in tasks]
+    for item in data:
+        item.pop('_sa_instance_state', None) 
 
-    return list, 200
+    return data, 200
 
 def index_tasks_by_category(id, category):
     list = []
     tasks = Task.query.filter_by(user_id = id, category_name = category).all()
-    for task in tasks:
-        data = {
-            "task_id": task.task_id,
-            "user_id": task.user_id,
-            "category_name": task.category_name,
-            "task_name": task.task_name,
-            "task_url": task.task_url,
-            "task_desc": task.task_desc
-        }
-        list.append(data)
+    data = [d.__dict__ for d in tasks]
+    for item in data:
+        item.pop('_sa_instance_state', None) 
 
-    return list, 200
+    return data, 200
 
 def show_task(id):
-    task = db.session.get(Task, id)
-    return {
-        "task_id": task.task_id,
-        "user_id": task.user_id,
-        "category_name": task.category_name,
-        "task_name": task.task_name,
-        "task_url": task.task_url,
-        "task_desc": task.task_desc
-    }
+    task = db.session.get(Task, id).__dict__
+    task.pop('_sa_instance_state', None)
+    return jsonify(task)
 
 
 def create_task(id):
