@@ -27,3 +27,7 @@ def update_task_route(task_id):
 @task_routes.route('/<int:task_id>', methods=['DELETE'])
 def destroy_task_route(task_id):
     return destroy_task(task_id)
+
+@task_routes.route('/user/<int:user_id>/<category>', methods=['DELETE'])
+def destroy_task_by_category_route(user_id, category):
+    return destroy_task_by_category(user_id, category)

@@ -75,3 +75,11 @@ def destroy_task(id):
     db.session.delete(task)
     db.session.commit()
     return jsonify({'message': 'Task deleted.'})
+
+def destroy_task_by_category(user_id, category):
+    tasks = index_tasks_by_category(user_id, category)
+    for t in tasks[0]:
+        task = db.session.get(Task, t.get('task_id'))
+        db.session.delete(task)
+    db.session.commit()
+    return jsonify({'message': 'Category deleted'})
