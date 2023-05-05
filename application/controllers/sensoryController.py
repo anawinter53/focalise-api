@@ -5,12 +5,8 @@ from flask import request, jsonify, render_template, redirect, url_for
 def show_sensory():
     list = []
     sensories = Sensory.query.all()
-    for s in sensories:
-        data = {
-            "sensory_id": s.sensory_id,
-            "video_category": s.video_category,
-            "video_url": s.video_url
-        }
-        list.append(data)
-    return list, 200
+    data = [d.__dict__ for d in sensories]
+    for item in data:
+        item.pop('_sa_instance_state', None)    
+    return data, 200
 

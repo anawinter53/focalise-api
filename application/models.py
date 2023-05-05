@@ -31,8 +31,8 @@ class UserSetting(db.Model):
     points = db.Column(db.Integer, nullable=False, default=0)
 
     user = db.relationship('User', back_populates='setting')
-
-    def __init__(self, user_id, font_name='Poppins', font_size='Medium', colour_scheme=2, push_notifications=2, points=0):
+    
+    def __init__(self, user_id, font_name="Poppins", font_size="Medium", colour_scheme=2, push_notifications=2, points=0):
         self.user_id = user_id
         self.colour_scheme = colour_scheme
         self.font_name = font_name

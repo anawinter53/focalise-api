@@ -1,5 +1,4 @@
 from application import app, db
-from application.models import User
 from flask import Blueprint
 from application.controllers.sensoryController import *
 
