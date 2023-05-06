@@ -1,7 +1,6 @@
 from unittest import mock
 from flask import g
 from application.models import User
-import json
 
 def test_get_user(client):
     res = client.get('/users/')
