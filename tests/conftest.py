@@ -1,10 +1,5 @@
-from flask import Flask
-from flask_cors import CORS
 import pytest
-from application import routes
 from application import app as flask_app
-import requests
-import json
 import testing.postgresql
 from sqlalchemy import create_engine
 from application.models import User
