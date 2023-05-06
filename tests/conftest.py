@@ -55,3 +55,13 @@ def incorrect_login_data():
         'username': 'test2',
         'password': 'oops'
     }
+
+@pytest.fixture
+def correct_task_data():
+    return {
+        "category_name": "Python",
+        "task_desc": "Find some python tests",
+        "task_name": "More Python",
+        "task_url": "",
+        "user_id": 1
+    }
