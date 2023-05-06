@@ -1,6 +1,5 @@
 from unittest import mock
 from flask import g
-import pytest
 from application.models import User
 import json
 
@@ -8,9 +7,9 @@ def test_app_get_user(client):
     res = client.get('/users/')
     assert res.status_code == 200 
 
-# def test_show_users(api):
-#     res = api.get('/users/1')
-#     assert res.status_code == 200
+def test_show_users(client):
+    res = client.get('/users/1/')
+    assert res.status_code == 200
 
 def test_app_create_user(client, test_db, correct_user_data):
     user_model = User("users", test_db)
