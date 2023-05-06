@@ -7,7 +7,7 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-
+# possibly set app.config to connect to test db if testing = True?
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DB_URL")
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 
