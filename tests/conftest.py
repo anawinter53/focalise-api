@@ -17,13 +17,13 @@ def app():
 @pytest.fixture()
 def client(app):
     with app.test_client() as test_client:
-        app.config['TESTING'] = True
-        app.config['DEBUG'] = False
-        app.register_blueprint(user_routes, name ='users', url_prefix="/users")
-        app.register_blueprint(task_routes, name ='tasks', url_prefix="/tasks")
-        app.register_blueprint(sensory_routes, name ='sensorys', url_prefix="/sensory")
-        app.register_blueprint(setting_routes, name ='settings', url_prefix="/settings")
-        app.register_blueprint(message_routes, name ='messages', url_prefix="/messages")
+        # app.config['TESTING'] = True
+        # app.config['DEBUG'] = False
+        # app.register_blueprint(user_routes, name ='users', url_prefix="/users")
+        # app.register_blueprint(task_routes, name ='tasks', url_prefix="/tasks")
+        # app.register_blueprint(sensory_routes, name ='sensorys', url_prefix="/sensory")
+        # app.register_blueprint(setting_routes, name ='settings', url_prefix="/settings")
+        # app.register_blueprint(message_routes, name ='messages', url_prefix="/messages")
         yield test_client
 
 # possible fix - recreate blueprint and assign to app
