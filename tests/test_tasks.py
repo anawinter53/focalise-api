@@ -19,5 +19,5 @@ def test_create_task(client, test_db, correct_task_data):
         mock_get.return_value = '70'
         g.user_model.create = mock_get
 
-        res = client.post('/users/register', json=correct_task_data)
+        res = client.post('/tasks/user/1', json=correct_task_data)
         assert res.status_code == 201

@@ -1,3 +1,6 @@
+import os
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 import pytest
 from application import app as flask_app
 import testing.postgresql
@@ -5,13 +8,19 @@ from sqlalchemy import create_engine
 from application.models import User
 from application.routes import *
 
+# app = Flask(__name__)
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("TEST_DB_URL")
+# db = SQLAlchemy(app)
+# db.init_app(app)
+
 @pytest.fixture()
 def app():
+    # app.config['TESTING'] = True
     return flask_app
 
 @pytest.fixture()
 def client(app):
-    with app.test_client() as test_client:
+    with app.test_client() as test_client: 
         yield test_client
 
 @pytest.fixture()
