@@ -85,3 +85,14 @@ def correct_update_task_data():
         "task_url": "https://flask.palletsprojects.com/en/2.3.x/testing/",
         "user_id": 1
     }
+
+@pytest.fixture
+def update_settings_data():
+    return {
+        "colour_scheme": 2,
+        "font_name": "Inter",
+        "font_size": "Large",
+        "points": 20,
+        "push_notifications": 2,
+        "user_id": 1
+    }

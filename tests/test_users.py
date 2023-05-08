@@ -44,9 +44,9 @@ def test_login_error(client, test_db, incorrect_login_data):
     res = client.post('/users/login', json=incorrect_login_data)
     assert res.status_code == 403
 
-# def test_logout(client, test_db, correct_login_data):
-#     user_model = User("users", test_db)
-#     g.user_model = user_model
+def test_logout(client, test_db, correct_login_data):
+    user_model = User("users", test_db)
+    g.user_model = user_model
     
-#     res = client.post('/users/logout', json=correct_login_data)
-#     assert res.status_code == 200
+    res = client.post('/users/logout', json=correct_login_data)
+    assert res.status_code == 200
