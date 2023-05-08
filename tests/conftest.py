@@ -65,3 +65,23 @@ def correct_task_data():
         "task_url": "",
         "user_id": 1
     }
+
+@pytest.fixture
+def incorrect_task_data():
+    return {
+        "category_name": "",
+        "task_desc": "",
+        "task_name": "",
+        "task_url": "",
+        "user_id": 1
+    }
+
+@pytest.fixture
+def correct_update_task_data():
+    return {
+        "category_name": "Python",
+        "task_desc": "Explore what python tests can do with Flask",
+        "task_name": "More Python",
+        "task_url": "https://flask.palletsprojects.com/en/2.3.x/testing/",
+        "user_id": 1
+    }
