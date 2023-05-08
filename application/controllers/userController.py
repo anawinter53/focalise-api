@@ -1,5 +1,5 @@
-from application import db, app
-from application.models import User, UserSetting, Token
+from application import db
+from application.models.models import User, UserSetting, Token
 from flask import request, jsonify, render_template, redirect, url_for
 import bcrypt
 import os

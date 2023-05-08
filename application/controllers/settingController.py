@@ -1,5 +1,5 @@
-from application import db, app
-from application.models import UserSetting
+from application import db
+from application.models.models import UserSetting
 from flask import request, jsonify, render_template, redirect, url_for
 
 def show_settings(id):

@@ -1,4 +1,3 @@
-from application import app, db
 from flask import Blueprint
 from application.controllers.taskController import *
 

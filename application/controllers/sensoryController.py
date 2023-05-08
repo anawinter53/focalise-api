@@ -1,5 +1,5 @@
-from application import db, app
-from application.models import Sensory
+from application import db
+from application.models.models import Sensory
 from flask import request, jsonify, render_template, redirect, url_for
 
 def show_sensory():

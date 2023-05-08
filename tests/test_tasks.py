@@ -1,6 +1,6 @@
 from unittest import mock
 from flask import g
-from application.models import User
+from application.models.models import User
 
 def test_get_tasks_by_user(client):
     res = client.get('/tasks/1')

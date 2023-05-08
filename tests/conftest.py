@@ -2,21 +2,27 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import pytest
-from application import app as flask_app
+from application import create_app, db
 import testing.postgresql
 from sqlalchemy import create_engine
-from application.models import User
+from test_db import Test_Database
+from application.models.models import User
 from application.routes import *
 
-# app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("TEST_DB_URL")
-# db = SQLAlchemy(app)
-# db.init_app(app)
+
 
 @pytest.fixture()
-def app():
-    # app.config['TESTING'] = True
-    return flask_app
+def create_app():
+    return create_app('TEST')
+
+# @pytest.fixture()
+# def setUp():
+#     db.create_all(Test_Database)
+
+# @pytest.fixture()
+# def tearDown():
+#     db.session.remove()
+#     db.drop_all()
 
 @pytest.fixture()
 def client(app):

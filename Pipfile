@@ -7,6 +7,7 @@ name = "pypi"
 dev="flask run"
 test = "pytest ."
 coverage = "pytest --cov-report term-missing --cov=."
+setup-db = "python3 application/databases/create_db.py"
 
 [packages]
 flask = "*"

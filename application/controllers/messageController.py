@@ -1,5 +1,5 @@
-from application import db, app
-from application.models import Message
+from application import db
+from application.models.models import Message
 from flask import request, jsonify, render_template, redirect, url_for
 
 def index_messages():

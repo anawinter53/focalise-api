@@ -1,5 +1,6 @@
 from application import app, db
-from application.models import User, UserSetting, Task, Message, Token, Sensory
+from application.models.models import User, UserSetting, Task, Message, Token, Sensory
+
 
 def delete_database():
     with app.app_context():
