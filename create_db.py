@@ -74,25 +74,26 @@ def add_entries():
         db.session.commit()
 
 def see_db_entries():
-    with app.app_context():
-        users = User.query.all()
-        for user in users:
-            print(f"{user.username}, {user.email}, {user.password}")
-        settings = UserSetting.query.all()
-        for setting in settings:
-            print(f"{setting.colour_scheme}")
-        tasks = Task.query.all()
-        for task in tasks:
-            print(f"{task.category_name}, {task.task_name}, {task.task_desc}")
-        messages = Message.query.all()
-        for message in messages:
-            print(f"{message.date}, {message.content}")
-        tokens = Token.query.all()
-        for token in tokens:
-            print(f"{token.token}")
-        sensorys = Sensory.query.all()
-        for sensory in sensorys:
-            print(f"{sensory.video_category}")
+    print("Database created")
+    # with app.app_context():
+    #     users = User.query.all()
+    #     for user in users:
+    #         print(f"{user.username}, {user.email}, {user.password}")
+    #     settings = UserSetting.query.all()
+    #     for setting in settings:
+    #         print(f"{setting.colour_scheme}")
+    #     tasks = Task.query.all()
+    #     for task in tasks:
+    #         print(f"{task.category_name}, {task.task_name}, {task.task_desc}")
+    #     messages = Message.query.all()
+    #     for message in messages:
+    #         print(f"{message.date}, {message.content}")
+    #     tokens = Token.query.all()
+    #     for token in tokens:
+    #         print(f"{token.token}")
+    #     sensorys = Sensory.query.all()
+    #     for sensory in sensorys:
+    #         print(f"{sensory.video_category}")
 
 if __name__ == '__main__':
     delete_database()
