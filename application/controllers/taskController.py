@@ -18,6 +18,14 @@ def index_tasks_by_category(id, category):
 
     return data, 200
 
+def index_categories_by_user(id):
+    tasks = Task.query.filter_by(user_id = id).all()
+    list = []
+    for t in tasks:
+        if t.category_name not in list:
+            list.append(t.category_name)
+    return list, 200
+
 def show_task(id):
     task = db.session.get(Task, id).__dict__
     task.pop('_sa_instance_state', None)
