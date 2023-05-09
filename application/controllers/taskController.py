@@ -3,7 +3,6 @@ from application.models import Task
 from flask import request, jsonify, render_template, redirect, url_for
 
 def index_tasks_by_user(id):
-    list = []
     tasks = Task.query.filter_by(user_id = id).order_by(Task.task_deadline.desc()).all()
     data = [d.__dict__ for d in tasks]
     for item in data:
@@ -12,7 +11,6 @@ def index_tasks_by_user(id):
     return data, 200
 
 def index_tasks_by_category(id, category):
-    list = []
     tasks = Task.query.filter_by(user_id = id, category_name = category).order_by(Task.task_deadline.desc()).all()
     data = [d.__dict__ for d in tasks]
     for item in data:
