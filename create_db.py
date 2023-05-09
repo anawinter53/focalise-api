@@ -26,23 +26,23 @@ def add_entries():
     Token1 = Token(user_id=1, token='9efda0af-245c-4842-bae2-de5fc279fbb7')
     Token2 = Token(user_id=2, token='f1e7c715-215d-43a7-ac45-bea3c9d423a2')
 
-    Sensory1 = Sensory(sensory_id=1, video_category='Music', video_url='https://www.youtube.com/watch?v=zuCRSwWssVk')
-    Sensory2 = Sensory(sensory_id=2, video_category='Music', video_url='https://www.youtube.com/watch?v=lE6RYpe9IT0')
-    Sensory3 = Sensory(sensory_id=3, video_category='Music', video_url='https://www.youtube.com/watch?v=u6rMyQwrzfo')
-    Sensory4 = Sensory(sensory_id=4, video_category='Music', video_url='https://www.youtube.com/watch?v=PMdJZcmHzrg')
-    Sensory5 = Sensory(sensory_id=5, video_category='Music', video_url='https://www.youtube.com/watch?v=4ROrW727q_s')
+    Sensory1 = Sensory(sensory_id=1, video_category='Music', video_url='https://www.youtube.com/embed/zuCRSwWssVk')
+    Sensory2 = Sensory(sensory_id=2, video_category='Music', video_url='https://www.youtube.com/embed/lE6RYpe9IT0')
+    Sensory3 = Sensory(sensory_id=3, video_category='Music', video_url='https://www.youtube.com/embed/u6rMyQwrzfo')
+    Sensory4 = Sensory(sensory_id=4, video_category='Music', video_url='https://www.youtube.com/embed/PMdJZcmHzrg')
+    Sensory5 = Sensory(sensory_id=5, video_category='Music', video_url='https://www.youtube.com/embed/4ROrW727q_s')
 
-    Sensory6 = Sensory(sensory_id=6, video_category='Animals', video_url='https://www.youtube.com/watch?v=3szkFHfr6sA')
-    Sensory7 = Sensory(sensory_id=7, video_category='Animals', video_url='https://www.youtube.com/watch?v=hHbp9hG61CQ')
-    Sensory8 = Sensory(sensory_id=8, video_category='Animals', video_url='https://www.youtube.com/watch?v=MIA8AKVZ0Yk')
-    Sensory9 = Sensory(sensory_id=9, video_category='Animals', video_url='https://www.youtube.com/watch?v=g_L1Ay8P244')
-    Sensory10 = Sensory(sensory_id=10, video_category='Animals', video_url='https://www.youtube.com/watch?v=h-Z0wCdD3dI')
+    Sensory6 = Sensory(sensory_id=6, video_category='Animals', video_url='https://www.youtube.com/embed/3szkFHfr6sA')
+    Sensory7 = Sensory(sensory_id=7, video_category='Animals', video_url='https://www.youtube.com/embed/hHbp9hG61CQ')
+    Sensory8 = Sensory(sensory_id=8, video_category='Animals', video_url='https://www.youtube.com/embed/MIA8AKVZ0Yk')
+    Sensory9 = Sensory(sensory_id=9, video_category='Animals', video_url='https://www.youtube.com/embed/g_L1Ay8P244')
+    Sensory10 = Sensory(sensory_id=10, video_category='Animals', video_url='https://www.youtube.com/embed/h-Z0wCdD3dI')
 
-    Sensory11 = Sensory(sensory_id=11, video_category='Meditation', video_url='https://www.youtube.com/watch?v=itZMM5gCboo')
-    Sensory12 = Sensory(sensory_id=12, video_category='Meditation', video_url='https://www.youtube.com/watch?v=DEjbUNUkfu8')
-    Sensory13 = Sensory(sensory_id=13, video_category='Meditation', video_url='https://www.youtube.com/watch?v=86m4RC_ADEY')
-    Sensory14 = Sensory(sensory_id=14, video_category='Meditation', video_url='https://www.youtube.com/watch?v=_DTmGtznab4')
-    Sensory15 = Sensory(sensory_id=15, video_category='Meditation', video_url='https://www.youtube.com/watch?v=1H2Cgc60UlU')
+    Sensory11 = Sensory(sensory_id=11, video_category='Meditation', video_url='https://www.youtube.com/embed/itZMM5gCboo')
+    Sensory12 = Sensory(sensory_id=12, video_category='Meditation', video_url='https://www.youtube.com/embed/DEjbUNUkfu8')
+    Sensory13 = Sensory(sensory_id=13, video_category='Meditation', video_url='https://www.youtube.com/embed/86m4RC_ADEY')
+    Sensory14 = Sensory(sensory_id=14, video_category='Meditation', video_url='https://www.youtube.com/embed/_DTmGtznab4')
+    Sensory15 = Sensory(sensory_id=15, video_category='Meditation', video_url='https://www.youtube.com/embed/1H2Cgc60UlU')
 
     with app.app_context():
         db.session.add(User1)
@@ -74,25 +74,26 @@ def add_entries():
         db.session.commit()
 
 def see_db_entries():
-    with app.app_context():
-        users = User.query.all()
-        for user in users:
-            print(f"{user.username}, {user.email}, {user.password}")
-        settings = UserSetting.query.all()
-        for setting in settings:
-            print(f"{setting.colour_scheme}")
-        tasks = Task.query.all()
-        for task in tasks:
-            print(f"{task.category_name}, {task.task_name}, {task.task_desc}")
-        messages = Message.query.all()
-        for message in messages:
-            print(f"{message.date}, {message.content}")
-        tokens = Token.query.all()
-        for token in tokens:
-            print(f"{token.token}")
-        sensorys = Sensory.query.all()
-        for sensory in sensorys:
-            print(f"{sensory.video_category}")
+    print("Database created")
+    # with app.app_context():
+    #     users = User.query.all()
+    #     for user in users:
+    #         print(f"{user.username}, {user.email}, {user.password}")
+    #     settings = UserSetting.query.all()
+    #     for setting in settings:
+    #         print(f"{setting.colour_scheme}")
+    #     tasks = Task.query.all()
+    #     for task in tasks:
+    #         print(f"{task.category_name}, {task.task_name}, {task.task_desc}")
+    #     messages = Message.query.all()
+    #     for message in messages:
+    #         print(f"{message.date}, {message.content}")
+    #     tokens = Token.query.all()
+    #     for token in tokens:
+    #         print(f"{token.token}")
+    #     sensorys = Sensory.query.all()
+    #     for sensory in sensorys:
+    #         print(f"{sensory.video_category}")
 
 if __name__ == '__main__':
     delete_database()

@@ -4,6 +4,6 @@ from application.controllers.sensoryController import *
 
 sensory_routes = Blueprint("sensory_routes", __name__)
 
-@sensory_routes.route('/')
+@sensory_routes.route('/', methods=['POST'])
 def get_sensory():
     return show_sensory()
