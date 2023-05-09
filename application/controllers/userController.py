@@ -66,3 +66,15 @@ def create_token(id):
     db.session.add(newToken)
     db.session.commit()
     return newToken
+
+def update_user(id):
+    data = request.get_json()
+    user = db.session.get(User, id)
+    user.username = data.get('username')
+    user.email = data.get('email')
+    password = data.get('password').encode('utf-8')
+    salt = bcrypt.gensalt(rounds=int(os.getenv("SALT_ROUNDS")))
+    hashed_password = bcrypt.hashpw(password, salt).decode('utf-8')
+    user.password = hashed_password
+    db.session.commit()
+    return jsonify({'message': 'User details updated'})
