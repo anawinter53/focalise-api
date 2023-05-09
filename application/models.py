@@ -1,5 +1,5 @@
 from application import app, db
-from datetime import datetime
+from datetime import datetime, timedelta
 
 app.app_context().push()
 
@@ -48,15 +48,17 @@ class Task(db.Model):
     task_name = db.Column(db.String(30), nullable=False)
     task_url = db.Column(db.String(300), default='None')
     task_desc = db.Column(db.String(100), nullable=False)
+    task_deadline = db.Column(db.DateTime, default=datetime.now() + timedelta(days = 30))
 
     user = db.relationship('User', back_populates='task')
 
-    def __init__(self, user_id, category_name, task_name, task_url, task_desc):
+    def __init__(self, user_id, category_name, task_name, task_url, task_desc, task_deadline):
         self.user_id = user_id
         self.category_name = category_name
         self.task_name = task_name
         self.task_url = task_url
         self.task_desc = task_desc
+        self.task_deadline = task_deadline
     
 class Message(db.Model):
     __tablename__ = 'message'
