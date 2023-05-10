@@ -47,7 +47,7 @@ def login():
     if not authenticated:
         return jsonify({'error': 'Incorrect credentials'}), 403
     token = create_token(user.get('user_id'))
-    return jsonify({'authenticated': authenticated, 'token': token.token, 'id': user.get('user_id')}), 200
+    return jsonify({'authenticated': authenticated, 'token': token.token, 'id': user.get('user_id'), 'userEmail': user.get('email')}), 200
 
 def logout():
     data = request.get_json()
@@ -72,9 +72,9 @@ def update_user(id):
     user = db.session.get(User, id)
     user.username = data.get('username')
     user.email = data.get('email')
-    password = data.get('password').encode('utf-8')
-    salt = bcrypt.gensalt(rounds=int(os.getenv("SALT_ROUNDS")))
-    hashed_password = bcrypt.hashpw(password, salt).decode('utf-8')
-    user.password = hashed_password
+    # password = data.get('password').encode('utf-8')
+    # salt = bcrypt.gensalt(rounds=int(os.getenv("SALT_ROUNDS")))
+    # hashed_password = bcrypt.hashpw(password, salt).decode('utf-8')
+    # user.password = hashed_password
     db.session.commit()
-    return jsonify({'message': 'User details updated'})
+    return jsonify({'message': 'User details updated', "username": user.username, "userEmail": user.email })
