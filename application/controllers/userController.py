@@ -47,7 +47,7 @@ def login():
     if not authenticated:
         return jsonify({'error': 'Incorrect credentials'}), 403
     token = create_token(user.get('user_id'))
-    return jsonify({'authenticated': authenticated, 'token': token.token, 'id': user.get('user_id')}), 200
+    return jsonify({'authenticated': authenticated, 'token': token.token, 'id': user.get('user_id'), 'userEmail': user.get('email')}), 200
 
 def logout():
     data = request.get_json()
