@@ -26,6 +26,13 @@ def index_categories_by_user(id):
             list.append(t.category_name)
     return list, 200
 
+def index_tasks_by_status(id, status):
+    tasks = Task.query.filter_by(user_id = id, task_status = status).order_by(Task.task_deadline.desc()).all()
+    data = [d.__dict__ for d in tasks]
+    for item in data:
+        item.pop('_sa_instance_state', None)
+    return data, 200    
+
 def show_task(id):
     task = db.session.get(Task, id).__dict__
     task.pop('_sa_instance_state', None)
@@ -55,6 +62,7 @@ def update_task(id):
     task.task_url = data.get('task_url')
     task.task_desc = data.get('task_desc')
     task.task_deadline = data.get('task_deadline')
+    task.task_status = data.get('task_status')
     db.session.commit()
     return jsonify({'message': 'Task updated'})
 
