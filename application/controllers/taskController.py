@@ -26,8 +26,8 @@ def index_categories_by_user(id):
             list.append(t.category_name)
     return list, 200
 
-def index_tasks_by_status(id, status):
-    tasks = Task.query.filter_by(user_id = id, task_status = status).order_by(Task.task_deadline.desc()).all()
+def index_tasks_by_status(id, category, status):
+    tasks = Task.query.filter_by(user_id = id, category_name=category, task_status = status).order_by(Task.task_deadline.desc()).all()
     data = [d.__dict__ for d in tasks]
     for item in data:
         item.pop('_sa_instance_state', None)
