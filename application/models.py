@@ -49,16 +49,18 @@ class Task(db.Model):
     task_url = db.Column(db.String(300), default='None')
     task_desc = db.Column(db.String(100), nullable=False)
     task_deadline = db.Column(db.DateTime, default=datetime.now() + timedelta(days = 30))
+    task_status = db.Column(db.String(30), default='Not Started')
 
     user = db.relationship('User', back_populates='task')
 
-    def __init__(self, user_id, category_name, task_name, task_url, task_desc, task_deadline):
+    def __init__(self, user_id, category_name, task_name, task_url, task_desc, task_deadline=(datetime.now() + timedelta(days = 30)), task_status='Not Started'):
         self.user_id = user_id
         self.category_name = category_name
         self.task_name = task_name
         self.task_url = task_url
         self.task_desc = task_desc
         self.task_deadline = task_deadline
+        self.task_status = task_status
     
 class Message(db.Model):
     __tablename__ = 'message'

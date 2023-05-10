@@ -16,6 +16,10 @@ def get_tasks_by_category(user_id, category):
 def get_categories_by_user(user_id):
     return index_categories_by_user(user_id)
 
+@task_routes.route('/user/<int:user_id>/status/<status>')
+def get_tasks_by_status(user_id, status):
+    return index_tasks_by_status(user_id, status)
+
 @task_routes.route('/user/<int:user_id>', methods=['POST'])
 def add_new_task(user_id):
     return create_task(user_id)
