@@ -23,3 +23,7 @@ def logout_route():
 @user_routes.route('/<int:user_id>')
 def show_user_route(user_id):
     return show_user(user_id)
+
+@user_routes.route('/<int:user_id>', methods=['PUT'])
+def update_user_route(user_id):
+    return update_user(user_id)
