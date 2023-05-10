@@ -9,7 +9,7 @@ def get_sensory():
     return index_sensory()
 
 @sensory_routes.route('/<category>')
-def get_senosry_by_category(category):
+def get_sensory_by_category(category):
     return index_sensory_by_category(category)
 
 @sensory_routes.route('/id/<int:sensory_id>')
