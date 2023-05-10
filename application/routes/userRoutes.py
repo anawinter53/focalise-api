@@ -27,3 +27,11 @@ def show_user_route(user_id):
 @user_routes.route('/<int:user_id>', methods=['PUT'])
 def update_user_route(user_id):
     return update_user(user_id)
+
+@user_routes.route('/<int:user_id>/password', methods=['PUT'])
+def update_password_route(user_id):
+    return update_user_password(user_id)
+
+@user_routes.route('/<int:user_id>/password', methods=['POST'])
+def check_password_route(user_id):
+    return check_password(user_id)

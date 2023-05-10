@@ -67,14 +67,31 @@ def create_token(id):
     db.session.commit()
     return newToken
 
-def update_user(id):
+def update_user_details(id):
     data = request.get_json()
     user = db.session.get(User, id)
     user.username = data.get('username')
     user.email = data.get('email')
-    password = data.get('password').encode('utf-8')
-    salt = bcrypt.gensalt(rounds=int(os.getenv("SALT_ROUNDS")))
-    hashed_password = bcrypt.hashpw(password, salt).decode('utf-8')
-    user.password = hashed_password
     db.session.commit()
     return jsonify({'message': 'User details updated'})
+
+def update_user_password(id):
+    data = request.get_json()
+    user = User.query.filter_by(user_id = id).first()
+    password = user.__dict__.get('password')
+    authenticated = bcrypt.checkpw(data.get('currentPassword').encode('utf-8'), password.encode('utf-8'))
+    if not authenticated:
+        return jsonify({'error': 'Incorrect credentials'}), 403
+    newPassword = data.get('newPassword').encode('utf-8')
+    salt = bcrypt.gensalt(rounds=int(os.getenv("SALT_ROUNDS")))
+    hashed_password = bcrypt.hashpw(newPassword, salt).decode('utf-8')
+    user.password = hashed_password
+    db.session.commit()
+    return jsonify({'message': 'Password updated'})
+
+def check_password(id):
+    data = request.get_json()
+    user = db.session.get(User, id).__dict__
+    authenticated = bcrypt.checkpw(data.get('password').encode('utf-8'), user.get('password').encode('utf-8'))
+    list = [authenticated]
+    return list
