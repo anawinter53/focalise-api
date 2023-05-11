@@ -17,14 +17,14 @@ The team followed an Agile methodology for the development of Focalise, using wi
 We streamlined our development process using our Kanban board on Trello. This allowed us to prioritise the demands of the projects whilst ensuring we weren't all working on the same files, helping us avoid Git merge conflicts as much as possible.
 
 <p align="center">
-<img src="" width=75% height=75%>
+<img src="https://github.com/anawinter53/i-am-the-walrus-api/blob/dev/documentation/Screenshot%202023-05-09%20at%2021.25.18.png" width=75% height=75%>
 </p>
 <br>
 
 Using Figma we were able to plan out the design for our website before coding it, helping with a more consistent design look across all the team's work. Figma enabled us to conceptualise possible features in a way that allowed for joint planning and more discussions on any new design ideas. 
 
 <p align="center">
-<img src="" width=75% height=75%>
+<img src="https://github.com/anawinter53/i-am-the-walrus-api/blob/dev/documentation/Screenshot%202023-05-09%20at%2021.28.17.png" width=75% height=75%>
 </p>
 <br>
 
