@@ -38,9 +38,14 @@ Using Figma we were able to plan out the design for our website before coding it
 |-------|--------|----------|
 | "/users" | GET | Returns all users |
 | "/users/register" | POST | Registers new user with username, email and password |
-| "/users/login" | POST | Logs user into their account, redirects to _______ |
-| "/users/logout" | POST | Logs user out of their account, redirects to _______ |
+| "/users/login" | POST | Logs user into their account, redirects to homepage |
+| "/users/logout" | POST | Logs user out of their account, redirects to homepage |
 | "/users/:user_id" | GET | Finds user profile by their id |
+| "/users/:user_id" | PUT | Updates user details |
+| "/users/:user_id/password" | PUT | Update user password |
+| "/users/:user_id/password" | POST | Checks password supplied by a user against the password in the database |
+
+
 
 #### User Setting Routes
 
@@ -56,6 +61,8 @@ Using Figma we were able to plan out the design for our website before coding it
 |-------|--------|----------|
 | "/tasks/user/:user_id" | GET | Gets all tasks by user id |
 | "/tasks/user/:user_id/:category" | GET | Gets all tasks by user id and category |
+| "/tasks/user/:user_id/categories" | GET | Gets all categories of tasks by user id |
+| "/tasks/user/:user_id/:category/:status" | GET | Gets all tasks by user id and orders by the status of each task |
 | "/tasks/user/:user_id" | POST | Add a new task by user id |
 | "/tasks/:task_id" | GET | Gets a task by task id |
 | "/tasks/:task_id" | PUT | Updates task by task id |
@@ -67,6 +74,8 @@ Using Figma we were able to plan out the design for our website before coding it
 | Route | Method | Response |
 |-------|--------|----------|
 | "/sensory" | GET | Shows all sensory links |
+| "/sensory/:category" | GET | Shows all sensory links by category |
+| "/sensory/id/:sensory-id" | GET | Shows sensory link by sensory id |
 
 
 #### Message Routes
