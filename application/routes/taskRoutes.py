@@ -32,6 +32,10 @@ def get_task(task_id):
 def update_task_route(task_id):
     return update_task(task_id)
 
+@task_routes.route('/<int:task_id>/status', methods=['PUT'])
+def update_task_status_route(task_id):
+    return update_task_status
+
 @task_routes.route('/<int:task_id>', methods=['DELETE'])
 def destroy_task_route(task_id):
     return destroy_task(task_id)

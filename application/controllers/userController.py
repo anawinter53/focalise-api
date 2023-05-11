@@ -93,5 +93,5 @@ def check_password(id):
     data = request.get_json()
     user = db.session.get(User, id).__dict__
     authenticated = bcrypt.checkpw(data.get('password').encode('utf-8'), user.get('password').encode('utf-8'))
-    list = [authenticated]
-    return list
+    # list = [authenticated]
+    return jsonify({'status': authenticated})

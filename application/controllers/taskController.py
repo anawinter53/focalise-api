@@ -66,6 +66,13 @@ def update_task(id):
     db.session.commit()
     return jsonify({'message': 'Task updated'})
 
+def update_task_status(id):
+    data = request.get_json()
+    task = db.session.get(Task, id)
+    task.task_status = data.get('task_status')
+    db.session.commit()
+    return jsonify({'message': "Status updated"})
+
 def destroy_task(id):
     task = db.session.get(Task, id)
     db.session.delete(task)
