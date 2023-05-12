@@ -24,11 +24,11 @@ def test_get_sensory_data_by_id(client):
     assert data['video_url'] == 'https://www.youtube.com/embed/lE6RYpe9IT0'
 
 def test_get_sensory_data_by_category(client):
-    res = client.get('/sensory/animals')
+    res = client.get('/sensory/Music')
     assert res.status_code == 200 
 
-    # data = json.loads(res.data)
-    # assert len(data) == 3
-    # assert data[0]['sensory_id'] == 2
-    # assert data[0]['video_category'] == 'Music'
-    # assert data[0]['video_url'] == 'https://www.youtube.com/embed/lE6RYpe9IT0'
+    data = json.loads(res.data)
+    assert len(data) == 5
+    assert data[0]['sensory_id'] == 1
+    assert data[0]['video_category'] == 'Music'
+    assert data[0]['video_url'] == 'https://www.youtube.com/embed/zuCRSwWssVk'

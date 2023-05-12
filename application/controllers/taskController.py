@@ -62,9 +62,16 @@ def update_task(id):
     task.task_url = data.get('task_url')
     task.task_desc = data.get('task_desc')
     task.task_deadline = data.get('task_deadline')
-    task.task_status = data.get('task_status')
+    # task.task_status = data.get('task_status')
     db.session.commit()
     return jsonify({'message': 'Task updated'})
+
+def update_task_status(id):
+    data = request.get_json()
+    task = db.session.get(Task, id)
+    task.task_status = data.get('task_status')
+    db.session.commit()
+    return jsonify({'message': "Status updated"})
 
 def destroy_task(id):
     task = db.session.get(Task, id)
